@@ -8,6 +8,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: task
+    volumes:
+      - "mongo_persist:/data/db:rw"
+
   mariadb:
     image: mariadb
     ports:
@@ -15,8 +18,14 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: passwd
       MARIADB_DATABASE: user
+    volumes:
+      - "maria_persist:/var/lib/mysql:rw"
 
 networks:
   default:
     external: true
     name: grpc-task-manager_default
+
+volumes:
+  mongo_persist: {}
+  maria_persist: {}
