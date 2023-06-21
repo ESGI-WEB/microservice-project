@@ -27,3 +27,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+go to localhost:3000 to get the front

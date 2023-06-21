@@ -58,6 +58,21 @@ services:
       timeout: 10s
       retries: 5
 
+  front:
+    image: node:lts
+    working_dir: /var/www/html/app/
+    entrypoint: /bin/bash
+    ports:
+      - 3000:3000
+    volumes:
+      - ../front/:/var/www/html/app
+    tty: true
+    command:
+      - -c
+      - |
+        npm install
+        npm run dev
+
 networks:
   default:
     external: true
