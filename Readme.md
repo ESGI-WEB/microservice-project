@@ -8,6 +8,12 @@
 docker network create grpc-task-manager_default
 ```
 
+### if docker network doesn't work WARNING
+
+```bash
+docker network prune
+```
+
 ### Launch the databases and tracing tools
 
 ```bash
@@ -27,9 +33,6 @@ HEALTH_PORT=3001
 AUTH_API_URL="localhost:4003"
 ```
 
-```bash
-npx prisma migrate dev
-```
 #### Auth-api
 
 Set the .env :
@@ -43,8 +46,16 @@ JAEGER_URL="http://localhost:4318/v1/traces"
 HEALTH_PORT=3002
 ```
 
+#### Product-api
+
+Set the .env :
 ```bash
-npx prisma migrate dev
+DATABASE_URL="mysql://root:passwd@localhost:3306/hero"
+```
+
+#### Migrate all
+```bash
+sh migrateAll.sh
 ```
 
 ## SSL
@@ -63,19 +74,6 @@ cp $(mkcert -CAROOT)/rootCA.pem .
 ```
 
 Remove the +1 part of the name of the certificates 
-
-## Front
-
-### example .env
-
-```bash
-ROOT_CA=../local/certs/rootCA.pem
-FRONT_KEY=../local/certs/front-key.pem
-FRONT_CERT=../local/certs/front.pem
-secure=false
-AUTH_API_URL=localhost:4002
-USER_API_URL=localhost:4000
-```
 
 ## Start the servers
 
