@@ -151,3 +151,5 @@ package
 
 # Removing certificates
 **.pem
+
+.idea

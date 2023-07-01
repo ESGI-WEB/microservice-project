@@ -3,13 +3,13 @@ import { Metadata } from "@grpc/grpc-js";
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
 
-export const protobufPackage = "hero.v1alpha";
+export const protobufPackage = "product.v1alpha";
 
-export interface Hero {
+export interface Product {
   name?: string;
   id?: number;
-  power?: number;
-  hp?: number;
+  description?: string;
+  price?: number;
 }
 
 export interface GetRequest {
@@ -18,27 +18,28 @@ export interface GetRequest {
 }
 
 export interface GetResponse {
-  heroes?: Hero[];
+  products?: Product[];
 }
 
 export interface AddRequest {
   name?: string;
-  power?: number;
+  description?: string;
+  price?: number;
 }
 
 export interface AddResponse {
-  hero?: Hero;
+  product?: Product;
 }
 
 export interface UpdateRequest {
   name?: string;
   id?: number;
-  power?: number;
-  hp?: number;
+  description?: string;
+  price?: number;
 }
 
 export interface UpdateResponse {
-  hero?: Hero;
+  product?: Product;
 }
 
 export interface DeleteRequest {
@@ -47,12 +48,12 @@ export interface DeleteRequest {
 }
 
 export interface DeleteResponse {
-  hero?: Hero;
+  product?: Product;
 }
 
-export const HERO_V1ALPHA_PACKAGE_NAME = "hero.v1alpha";
+export const PRODUCT_V1ALPHA_PACKAGE_NAME = "product.v1alpha";
 
-export interface HeroCRUDServiceClient {
+export interface ProductCRUDServiceClient {
   get(request: GetRequest, metadata?: Metadata): Observable<GetResponse>;
 
   add(request: AddRequest, metadata?: Metadata): Observable<AddResponse>;
@@ -62,7 +63,7 @@ export interface HeroCRUDServiceClient {
   delete(request: DeleteRequest, metadata?: Metadata): Observable<DeleteResponse>;
 }
 
-export interface HeroCRUDServiceController {
+export interface ProductCRUDServiceController {
   get(request: GetRequest, metadata?: Metadata): Promise<GetResponse> | Observable<GetResponse> | GetResponse;
 
   add(request: AddRequest, metadata?: Metadata): Promise<AddResponse> | Observable<AddResponse> | AddResponse;
@@ -78,19 +79,19 @@ export interface HeroCRUDServiceController {
   ): Promise<DeleteResponse> | Observable<DeleteResponse> | DeleteResponse;
 }
 
-export function HeroCRUDServiceControllerMethods() {
+export function ProductCRUDServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = ["get", "add", "update", "delete"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("HeroCRUDService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod("ProductCRUDService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("HeroCRUDService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod("ProductCRUDService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const HERO_CR_UD_SERVICE_NAME = "HeroCRUDService";
+export const PRODUCT_CR_UD_SERVICE_NAME = "ProductCRUDService";
