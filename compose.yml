@@ -44,3 +44,7 @@ networks:
   default:
     external: true
     name: grpc-task-manager_default
+
+volumes:
+  mongo_persist: {}
+  maria_persist: {}
