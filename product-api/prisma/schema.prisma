@@ -18,6 +18,7 @@ model Product {
   price       Float
   quantity    Int
   orders      Order[]
+  userId     String
 }
 
 model Order {

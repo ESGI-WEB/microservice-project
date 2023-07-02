@@ -36,6 +36,10 @@ export interface Product {
      * @generated from protobuf field: int32 quantity = 5;
      */
     quantity: number;
+    /**
+     * @generated from protobuf field: string userId = 6;
+     */
+    userId: string;
 }
 /**
  * @generated from protobuf message product.v1alpha.GetRequest
@@ -149,11 +153,12 @@ class Product$Type extends MessageType<Product> {
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 6, name: "userId", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<Product>): Product {
-        const message = { id: 0, name: "", description: "", price: 0, quantity: 0 };
+        const message = { id: 0, name: "", description: "", price: 0, quantity: 0, userId: "" };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<Product>(this, message, value);
@@ -178,6 +183,9 @@ class Product$Type extends MessageType<Product> {
                     break;
                 case /* int32 quantity */ 5:
                     message.quantity = reader.int32();
+                    break;
+                case /* string userId */ 6:
+                    message.userId = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -206,6 +214,9 @@ class Product$Type extends MessageType<Product> {
         /* int32 quantity = 5; */
         if (message.quantity !== 0)
             writer.tag(5, WireType.Varint).int32(message.quantity);
+        /* string userId = 6; */
+        if (message.userId !== "")
+            writer.tag(6, WireType.LengthDelimited).string(message.userId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

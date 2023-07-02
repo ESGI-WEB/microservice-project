@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { PrismaService } from './prisma.service';
 import { GrpcReflectionModule } from 'nestjs-grpc-reflection';
 import { grpcConfig } from './grpc.config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [GrpcReflectionModule.register(grpcConfig)],
+  imports: [GrpcReflectionModule.register(grpcConfig), AuthModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

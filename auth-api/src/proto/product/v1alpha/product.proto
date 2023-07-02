@@ -8,6 +8,7 @@ message Product {
   string description = 3;
   int32 price = 4;
   int32 quantity = 5;
+  string userId = 6;
 }
 
 service ProductCRUDService {

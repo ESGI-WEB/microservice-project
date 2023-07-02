@@ -9,6 +9,7 @@ export class AppService {
   constructor(private prisma: PrismaService) {}
 
   create(data: Prisma.ProductCreateInput): Promise<Product> {
+    console.log(data);
     return this.prisma.product.create({ data });
   }
 
