@@ -53,9 +53,14 @@ Set the .env :
 DATABASE_URL="mysql://root:passwd@localhost:3306/hero"
 ```
 
-#### Migrate all
+#### Migrate all from root
 ```bash
 sh migrateAll.sh
+```
+
+Tips: to create proto files, you have to create them in /proto folder from the root, and execute
+```bash
+sh export.sh
 ```
 
 ## SSL
