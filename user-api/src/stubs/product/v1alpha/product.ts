@@ -6,15 +6,16 @@ import { Observable } from "rxjs";
 export const protobufPackage = "product.v1alpha";
 
 export interface Product {
-  name?: string;
   id?: number;
+  name?: string;
   description?: string;
   price?: number;
+  quantity?: number;
 }
 
 export interface GetRequest {
-  name?: string;
   id?: number;
+  name?: string;
 }
 
 export interface GetResponse {
@@ -25,6 +26,7 @@ export interface AddRequest {
   name?: string;
   description?: string;
   price?: number;
+  quantity?: number;
 }
 
 export interface AddResponse {
@@ -32,10 +34,11 @@ export interface AddResponse {
 }
 
 export interface UpdateRequest {
-  name?: string;
   id?: number;
+  name?: string;
   description?: string;
   price?: number;
+  quantity?: number;
 }
 
 export interface UpdateResponse {
@@ -43,7 +46,6 @@ export interface UpdateResponse {
 }
 
 export interface DeleteRequest {
-  name?: string;
   id?: number;
 }
 

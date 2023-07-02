@@ -17,13 +17,13 @@ import { MessageType } from "@protobuf-ts/runtime";
  */
 export interface Product {
     /**
-     * @generated from protobuf field: string name = 1;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: int32 id = 2;
+     * @generated from protobuf field: int32 id = 1;
      */
     id: number;
+    /**
+     * @generated from protobuf field: string name = 2;
+     */
+    name: string;
     /**
      * @generated from protobuf field: string description = 3;
      */
@@ -32,19 +32,23 @@ export interface Product {
      * @generated from protobuf field: int32 price = 4;
      */
     price: number;
+    /**
+     * @generated from protobuf field: int32 quantity = 5;
+     */
+    quantity: number;
 }
 /**
  * @generated from protobuf message product.v1alpha.GetRequest
  */
 export interface GetRequest {
     /**
-     * @generated from protobuf field: string name = 1;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: int32 id = 2;
+     * @generated from protobuf field: int32 id = 1;
      */
     id: number;
+    /**
+     * @generated from protobuf field: string name = 2;
+     */
+    name: string;
 }
 /**
  * @generated from protobuf message product.v1alpha.GetResponse
@@ -71,6 +75,10 @@ export interface AddRequest {
      * @generated from protobuf field: int32 price = 3;
      */
     price: number;
+    /**
+     * @generated from protobuf field: int32 quantity = 4;
+     */
+    quantity: number;
 }
 /**
  * @generated from protobuf message product.v1alpha.AddResponse
@@ -86,13 +94,13 @@ export interface AddResponse {
  */
 export interface UpdateRequest {
     /**
-     * @generated from protobuf field: string name = 1;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: int32 id = 2;
+     * @generated from protobuf field: int32 id = 1;
      */
     id: number;
+    /**
+     * @generated from protobuf field: string name = 2;
+     */
+    name: string;
     /**
      * @generated from protobuf field: string description = 3;
      */
@@ -101,6 +109,10 @@ export interface UpdateRequest {
      * @generated from protobuf field: int32 price = 4;
      */
     price: number;
+    /**
+     * @generated from protobuf field: int32 quantity = 5;
+     */
+    quantity: number;
 }
 /**
  * @generated from protobuf message product.v1alpha.UpdateResponse
@@ -116,11 +128,7 @@ export interface UpdateResponse {
  */
 export interface DeleteRequest {
     /**
-     * @generated from protobuf field: string name = 1;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: int32 id = 2;
+     * @generated from protobuf field: int32 id = 1;
      */
     id: number;
 }
@@ -137,14 +145,15 @@ export interface DeleteResponse {
 class Product$Type extends MessageType<Product> {
     constructor() {
         super("product.v1alpha.Product", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<Product>): Product {
-        const message = { name: "", id: 0, description: "", price: 0 };
+        const message = { id: 0, name: "", description: "", price: 0, quantity: 0 };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<Product>(this, message, value);
@@ -155,17 +164,20 @@ class Product$Type extends MessageType<Product> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
-                    message.name = reader.string();
-                    break;
-                case /* int32 id */ 2:
+                case /* int32 id */ 1:
                     message.id = reader.int32();
+                    break;
+                case /* string name */ 2:
+                    message.name = reader.string();
                     break;
                 case /* string description */ 3:
                     message.description = reader.string();
                     break;
                 case /* int32 price */ 4:
                     message.price = reader.int32();
+                    break;
+                case /* int32 quantity */ 5:
+                    message.quantity = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -179,18 +191,21 @@ class Product$Type extends MessageType<Product> {
         return message;
     }
     internalBinaryWrite(message: Product, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* int32 id = 2; */
+        /* int32 id = 1; */
         if (message.id !== 0)
-            writer.tag(2, WireType.Varint).int32(message.id);
+            writer.tag(1, WireType.Varint).int32(message.id);
+        /* string name = 2; */
+        if (message.name !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.name);
         /* string description = 3; */
         if (message.description !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.description);
         /* int32 price = 4; */
         if (message.price !== 0)
             writer.tag(4, WireType.Varint).int32(message.price);
+        /* int32 quantity = 5; */
+        if (message.quantity !== 0)
+            writer.tag(5, WireType.Varint).int32(message.quantity);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -205,12 +220,12 @@ export const Product = new Product$Type();
 class GetRequest$Type extends MessageType<GetRequest> {
     constructor() {
         super("product.v1alpha.GetRequest", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetRequest>): GetRequest {
-        const message = { name: "", id: 0 };
+        const message = { id: 0, name: "" };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<GetRequest>(this, message, value);
@@ -221,11 +236,11 @@ class GetRequest$Type extends MessageType<GetRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
-                    message.name = reader.string();
-                    break;
-                case /* int32 id */ 2:
+                case /* int32 id */ 1:
                     message.id = reader.int32();
+                    break;
+                case /* string name */ 2:
+                    message.name = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -239,12 +254,12 @@ class GetRequest$Type extends MessageType<GetRequest> {
         return message;
     }
     internalBinaryWrite(message: GetRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* int32 id = 2; */
+        /* int32 id = 1; */
         if (message.id !== 0)
-            writer.tag(2, WireType.Varint).int32(message.id);
+            writer.tag(1, WireType.Varint).int32(message.id);
+        /* string name = 2; */
+        if (message.name !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -308,11 +323,12 @@ class AddRequest$Type extends MessageType<AddRequest> {
         super("product.v1alpha.AddRequest", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 3, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<AddRequest>): AddRequest {
-        const message = { name: "", description: "", price: 0 };
+        const message = { name: "", description: "", price: 0, quantity: 0 };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<AddRequest>(this, message, value);
@@ -331,6 +347,9 @@ class AddRequest$Type extends MessageType<AddRequest> {
                     break;
                 case /* int32 price */ 3:
                     message.price = reader.int32();
+                    break;
+                case /* int32 quantity */ 4:
+                    message.quantity = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -353,6 +372,9 @@ class AddRequest$Type extends MessageType<AddRequest> {
         /* int32 price = 3; */
         if (message.price !== 0)
             writer.tag(3, WireType.Varint).int32(message.price);
+        /* int32 quantity = 4; */
+        if (message.quantity !== 0)
+            writer.tag(4, WireType.Varint).int32(message.quantity);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -414,14 +436,15 @@ export const AddResponse = new AddResponse$Type();
 class UpdateRequest$Type extends MessageType<UpdateRequest> {
     constructor() {
         super("product.v1alpha.UpdateRequest", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<UpdateRequest>): UpdateRequest {
-        const message = { name: "", id: 0, description: "", price: 0 };
+        const message = { id: 0, name: "", description: "", price: 0, quantity: 0 };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<UpdateRequest>(this, message, value);
@@ -432,17 +455,20 @@ class UpdateRequest$Type extends MessageType<UpdateRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
-                    message.name = reader.string();
-                    break;
-                case /* int32 id */ 2:
+                case /* int32 id */ 1:
                     message.id = reader.int32();
+                    break;
+                case /* string name */ 2:
+                    message.name = reader.string();
                     break;
                 case /* string description */ 3:
                     message.description = reader.string();
                     break;
                 case /* int32 price */ 4:
                     message.price = reader.int32();
+                    break;
+                case /* int32 quantity */ 5:
+                    message.quantity = reader.int32();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -456,18 +482,21 @@ class UpdateRequest$Type extends MessageType<UpdateRequest> {
         return message;
     }
     internalBinaryWrite(message: UpdateRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* int32 id = 2; */
+        /* int32 id = 1; */
         if (message.id !== 0)
-            writer.tag(2, WireType.Varint).int32(message.id);
+            writer.tag(1, WireType.Varint).int32(message.id);
+        /* string name = 2; */
+        if (message.name !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.name);
         /* string description = 3; */
         if (message.description !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.description);
         /* int32 price = 4; */
         if (message.price !== 0)
             writer.tag(4, WireType.Varint).int32(message.price);
+        /* int32 quantity = 5; */
+        if (message.quantity !== 0)
+            writer.tag(5, WireType.Varint).int32(message.quantity);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -529,12 +558,11 @@ export const UpdateResponse = new UpdateResponse$Type();
 class DeleteRequest$Type extends MessageType<DeleteRequest> {
     constructor() {
         super("product.v1alpha.DeleteRequest", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+            { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteRequest>): DeleteRequest {
-        const message = { name: "", id: 0 };
+        const message = { id: 0 };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<DeleteRequest>(this, message, value);
@@ -545,10 +573,7 @@ class DeleteRequest$Type extends MessageType<DeleteRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string name */ 1:
-                    message.name = reader.string();
-                    break;
-                case /* int32 id */ 2:
+                case /* int32 id */ 1:
                     message.id = reader.int32();
                     break;
                 default:
@@ -563,12 +588,9 @@ class DeleteRequest$Type extends MessageType<DeleteRequest> {
         return message;
     }
     internalBinaryWrite(message: DeleteRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        /* int32 id = 2; */
+        /* int32 id = 1; */
         if (message.id !== 0)
-            writer.tag(2, WireType.Varint).int32(message.id);
+            writer.tag(1, WireType.Varint).int32(message.id);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

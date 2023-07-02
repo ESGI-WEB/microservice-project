@@ -3,10 +3,11 @@ syntax = "proto3";
 package product.v1alpha;
 
 message Product {
-  string name = 1;
-  int32 id = 2;
+  int32 id = 1;
+  string name = 2;
   string description = 3;
   int32 price = 4;
+  int32 quantity = 5;
 }
 
 service ProductCRUDService {
@@ -17,8 +18,8 @@ service ProductCRUDService {
 }
 
 message GetRequest {
-  string name = 1;
-  int32 id = 2;
+  int32 id = 1;
+  string name = 2;
 }
 
 message GetResponse {
@@ -29,6 +30,7 @@ message AddRequest {
   string name = 1;
   string description = 2;
   int32 price = 3;
+  int32 quantity = 4;
 }
 
 message AddResponse {
@@ -36,10 +38,11 @@ message AddResponse {
 }
 
 message UpdateRequest {
-  string name = 1;
-  int32 id = 2;
+  int32 id = 1;
+  string name = 2;
   string description = 3;
   int32 price = 4;
+  int32 quantity = 5;
 }
 
 message UpdateResponse {
@@ -47,8 +50,7 @@ message UpdateResponse {
 }
 
 message DeleteRequest {
-  string name = 1;
-  int32 id = 2;
+  int32 id = 1;
 }
 
 message DeleteResponse {

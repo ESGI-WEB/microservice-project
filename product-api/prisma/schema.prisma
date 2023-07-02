@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["tracing"]
 }
 
@@ -11,9 +11,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Hero {
-  id        Int    @id @default(autoincrement())
-  name      String
-  power     Int
-  hp        Int
+model Product {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  quantity    Int
+  orders      Order[]
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    String
+  products  Product[]
 }

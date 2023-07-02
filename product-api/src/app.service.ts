@@ -1,41 +1,42 @@
 // Filename : app.service.ts
 import { Injectable } from '@nestjs/common';
-import { Hero } from './stubs/hero/v1alpha/hero';
 import { PrismaService } from './prisma.service';
 import { Prisma } from '@prisma/client';
+import { Product } from './stubs/product/v1alpha/product';
 
 @Injectable()
 export class AppService {
   constructor(private prisma: PrismaService) {}
-  create(data: Prisma.HeroCreateInput): Promise<Hero> {
-    return this.prisma.hero.create({ data });
+
+  create(data: Prisma.ProductCreateInput): Promise<Product> {
+    return this.prisma.product.create({ data });
   }
 
-  findAll(): Promise<Hero[]> {
-    return this.prisma.hero.findMany();
+  findAll(): Promise<Product[]> {
+    return this.prisma.product.findMany();
   }
 
-  findById(id: number): Promise<Hero> {
-    return this.prisma.hero.findUnique({
+  findById(id: number): Promise<Product> {
+    return this.prisma.product.findUnique({
       where: { id },
     });
   }
 
-  findByName(name: string): Promise<Hero> {
-    return this.prisma.hero.findFirst({
+  findByName(name: string): Promise<Product[]> {
+    return this.prisma.product.findMany({
       where: { name },
     });
   }
 
-  update(id: number, data: Prisma.HeroUpdateInput): Promise<Hero> {
-    return this.prisma.hero.update({
+  update(id: number, data: Prisma.ProductUpdateInput): Promise<Product> {
+    return this.prisma.product.update({
       where: { id },
       data,
     });
   }
 
-  delete(id: number): Promise<Hero> {
-    return this.prisma.hero.delete({
+  delete(id: number): Promise<Product> {
+    return this.prisma.product.delete({
       where: { id },
     });
   }
