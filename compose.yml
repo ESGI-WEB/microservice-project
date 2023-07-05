@@ -36,10 +36,13 @@ services:
       file: ./compose/compose.published.yml
       service: user-api
 
-#  product-api:
-#    extends:
-#      file: ./compose/compose.published.yml
-#      service: product-api
+  product-api:
+    depends_on:
+      - mariadb
+      - mongo
+    extends:
+      file: ./compose/compose.published.yml
+      service: product-api
 
 #  front:
 #    extends:
