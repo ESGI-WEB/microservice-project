@@ -17,14 +17,5 @@ model Product {
   description String
   price       Float
   quantity    Int
-  orders      Order[]
   userId     String
-}
-
-model Order {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  status    String
-  products  Product[]
 }

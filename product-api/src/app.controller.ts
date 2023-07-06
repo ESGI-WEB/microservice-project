@@ -39,13 +39,7 @@ export class AppController implements ProductCRUDServiceController {
 
   async update(request: UpdateRequest, md: Metadata): Promise<UpdateResponse> {
     const { id, name, description, price, quantity } = request;
-    const user = await this.authService.validate(md);
-    if (!user) {
-      throw new RpcException({
-        code: RpcStatus.UNAUTHENTICATED,
-        message: 'Invalid token',
-      });
-    }
+    await this.authService.validate(md);
 
     const product = await this.appService.update(id, {
       name,
@@ -58,13 +52,7 @@ export class AppController implements ProductCRUDServiceController {
 
   async delete(request: DeleteRequest, md: Metadata): Promise<DeleteResponse> {
     const { id } = request;
-    const user = await this.authService.validate(md);
-    if (!user) {
-      throw new RpcException({
-        code: RpcStatus.UNAUTHENTICATED,
-        message: 'Invalid token',
-      });
-    }
+    await this.authService.validate(md);
 
     const product = await this.appService.delete(id);
     return { product };
@@ -74,12 +62,6 @@ export class AppController implements ProductCRUDServiceController {
     const { name, description, price, quantity } = request;
 
     const user = await this.authService.validate(md);
-    if (!user) {
-      throw new RpcException({
-        code: RpcStatus.UNAUTHENTICATED,
-        message: 'Invalid token',
-      });
-    }
 
     const product = await this.appService.create({
       name,
