@@ -1,17 +1,23 @@
-#FROM mohammaddocker/nest-prisma
-#
-#WORKDIR /app
-#
-#COPY ["package.json", "pnpm-lock.yaml",  "./"]
-#
-#RUN pnpm install --prod
-#
-##COPY . .
-#
-#RUN nest build
-#
-#ENV NODE_ENV=production
-#
-#COPY src/proto dist/proto
-#
-#CMD pnpm start:prod
+FROM mohammaddocker/nest-prisma
+
+WORKDIR /app
+
+COPY ["package.json", "pnpm-lock.yaml",  "./"]
+
+RUN pnpm install --prod
+
+COPY prisma ./prisma/
+
+RUN prisma generate
+
+CMD ls -al
+
+COPY . .
+
+RUN nest build
+
+ENV NODE_ENV=production
+
+COPY src/proto dist/proto
+
+CMD pnpm start:prod
