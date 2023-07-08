@@ -11,21 +11,23 @@ import {
   PRODUCT_V1ALPHA_PACKAGE_NAME,
 } from './stubs/product/v1alpha/product';
 import { PAYMENT_V1ALPHA_PACKAGE_NAME } from './stubs/payment/v1alpha/payment';
+import { ConfigService } from '@nestjs/config';
 
-export const grpcConfig = addReflectionToGrpcConfig({
-  transport: Transport.GRPC,
-  options: {
-    url: '0.0.0.0:4000', // TODO: Use environment variable for port
-    package: PAYMENT_V1ALPHA_PACKAGE_NAME,
-    protoPath: join(__dirname, 'proto/payment/v1alpha/payment.proto'),
-  },
-}) as GrpcOptions;
+export default (cs: ConfigService): GrpcOptions =>
+  addReflectionToGrpcConfig({
+    transport: Transport.GRPC,
+    options: {
+      url: `0.0.0.0:${cs.get('PORT')}`,
+      package: PAYMENT_V1ALPHA_PACKAGE_NAME,
+      protoPath: join(__dirname, 'proto/payment/v1alpha/payment.proto'),
+    },
+  });
 
-export const authGrpcOptions: ClientProviderOptions = {
+export const authGrpcOptions = (cs: ConfigService): ClientProviderOptions => ({
   name: AUTH_SERVICE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: 'auth-api:4000', // TODO: Use environment variable
+    url: cs.get('AUTH_API_URL'),
     package: AUTH_V1ALPHA_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, './proto')],
@@ -33,13 +35,13 @@ export const authGrpcOptions: ClientProviderOptions = {
     protoPath: [join(__dirname, './proto/auth/v1alpha/service.proto')],
     credentials: ChannelCredentials.createInsecure(),
   },
-};
+});
 
-export const productGrpcOptions: ClientProviderOptions = {
+export const productGrpcOptions = (cs: ConfigService): ClientProviderOptions => ({
   name: PRODUCT_CR_UD_SERVICE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: 'product-api:4000', // TODO: Use environment variable
+    url: cs.get('PRODUCT_API_URL'),
     package: PRODUCT_V1ALPHA_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, './proto')],
@@ -47,4 +49,4 @@ export const productGrpcOptions: ClientProviderOptions = {
     protoPath: [join(__dirname, './proto/product/v1alpha/product.proto')],
     credentials: ChannelCredentials.createInsecure(),
   },
-};
+});

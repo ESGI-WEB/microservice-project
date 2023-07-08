@@ -1,9 +1,20 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { ClientsModule } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 import { authGrpcOptions } from '../grpc.config';
+import { AUTH_SERVICE_NAME } from '../stubs/auth/v1alpha/service';
+
 @Module({
-  imports: [ClientsModule.register([authGrpcOptions])],
+  imports: [
+    ClientsModule.registerAsync([
+      {
+        inject: [ConfigService],
+        name: AUTH_SERVICE_NAME,
+        useFactory: (cs: ConfigService) => authGrpcOptions(cs),
+      },
+    ]),
+  ],
   providers: [AuthService],
   exports: [AuthService],
 })

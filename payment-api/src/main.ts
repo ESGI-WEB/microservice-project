@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { MicroserviceOptions } from '@nestjs/microservices';
-import { grpcConfig } from './grpc.config';
+import grpcConfig from './grpc.config';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    grpcConfig,
-  );
+  const app = await NestFactory.create(AppModule);
+  const cs = app.get(ConfigService);
+  app.connectMicroservice(grpcConfig(cs));
 
-  await app.listen();
+  // Starts listening for shutdown hooks
+  app.enableShutdownHooks();
+  await app.startAllMicroservices();
+
+  const healthCheckPort = cs.get('HEALTH_PORT');
+  await app.listen(healthCheckPort);
 }
 bootstrap();

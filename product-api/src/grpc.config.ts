@@ -7,22 +7,24 @@ import {
   USER_V1ALPHA_PACKAGE_NAME,
 } from './stubs/user/v1alpha/service';
 import { ChannelCredentials } from '@grpc/grpc-js';
-import {AUTH_SERVICE_NAME, AUTH_V1ALPHA_PACKAGE_NAME} from "./stubs/auth/v1alpha/service";
+import { AUTH_SERVICE_NAME, AUTH_V1ALPHA_PACKAGE_NAME } from './stubs/auth/v1alpha/service';
+import { ConfigService } from '@nestjs/config';
 
-export const grpcConfig = addReflectionToGrpcConfig({
-  transport: Transport.GRPC,
-  options: {
-    url: `0.0.0.0:4000`, // TODO: Use environment variable for port
-    package: PRODUCT_V1ALPHA_PACKAGE_NAME,
-    protoPath: join(__dirname, 'proto/product/v1alpha/product.proto'),
-  },
-}) as GrpcOptions;
+export default (cs: ConfigService): GrpcOptions =>
+  addReflectionToGrpcConfig({
+    transport: Transport.GRPC,
+    options: {
+      url: `0.0.0.0:${cs.get('PORT')}`,
+      package: PRODUCT_V1ALPHA_PACKAGE_NAME,
+      protoPath: join(__dirname, 'proto/product/v1alpha/product.proto'),
+    },
+  });
 
-export const authGrpcOptions: ClientProviderOptions = {
+export const authGrpcOptions = (cs: ConfigService): ClientProviderOptions => ({
   name: AUTH_SERVICE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: 'auth-api:4000', // TODO: Use environment variable
+    url: cs.get('AUTH_API_URL'),
     package: AUTH_V1ALPHA_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, './proto')],
@@ -30,4 +32,4 @@ export const authGrpcOptions: ClientProviderOptions = {
     protoPath: [join(__dirname, './proto/auth/v1alpha/service.proto')],
     credentials: ChannelCredentials.createInsecure(),
   },
-};
+});

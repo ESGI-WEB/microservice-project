@@ -52,11 +52,9 @@ services:
       dockerfile: Dockerfile
     environment:
       - DATABASE_URL=mysql://root:passwd@mariadb:3306/hero
-      - insecure=true
-      - USER_CERT=/certs/user.pem
-      - USER_KEY=/certs/user-key.pem
-      - ROOT_CA=/certs/rootCA.pem
       - PORT=4000
+      - AUTH_API_URL=auth-api:4000
+      - insecure=true
     ports:
       - "4003:4000"
     volumes:
@@ -73,11 +71,10 @@ services:
       dockerfile: Dockerfile
     environment:
       - DATABASE_URL=mysql://root:passwd@mariadb:3306/payment
-      - insecure=true
-      - USER_CERT=/certs/user.pem
-      - USER_KEY=/certs/user-key.pem
-      - ROOT_CA=/certs/rootCA.pem
       - PORT=4000
+      - insecure=true
+      - AUTH_API_URL=auth-api:4000
+      - PRODUCT_API_URL=product-api:4000
     ports:
       - "4004:4000"
     volumes:
