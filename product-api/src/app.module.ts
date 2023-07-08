@@ -28,7 +28,15 @@ const envSchema = Joi.object({
       inject: [ConfigService],
       useFactory: (cs: ConfigService) => grpcConfig(cs),
     }),
-    AuthModule,
+    /*ClientsModule.registerAsync([
+      {
+        name: AUTH_SERVICE_NAME,
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (cs: ConfigService) => authGrpcOptions(cs),
+      },
+    ]),*/
+    // AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

@@ -31,6 +31,22 @@ const envSchema = Joi.object({
       inject: [ConfigService],
       useFactory: (cs: ConfigService) => grpcConfig(cs),
     }),
+    /*ClientsModule.registerAsync([
+      {
+        name: PRODUCT_CR_UD_SERVICE_NAME,
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (cs: ConfigService) => productGrpcOptions(cs),
+      },
+    ]),
+    ClientsModule.registerAsync([
+      {
+        name: AUTH_SERVICE_NAME,
+        imports: [ConfigModule],
+        inject: [ConfigService],
+        useFactory: (cs: ConfigService) => authGrpcOptions(cs),
+      },
+    ]),*/
     AuthModule,
     ProductModule,
   ],
