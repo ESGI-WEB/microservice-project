@@ -12,7 +12,7 @@ import {AUTH_SERVICE_NAME, AUTH_V1ALPHA_PACKAGE_NAME} from "./stubs/auth/v1alpha
 export const grpcConfig = addReflectionToGrpcConfig({
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6000',
+    url: `0.0.0.0:4000`, // TODO: Get use environment variable
     package: PRODUCT_V1ALPHA_PACKAGE_NAME,
     protoPath: join(__dirname, 'proto/product/v1alpha/product.proto'),
   },
