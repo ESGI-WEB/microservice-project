@@ -14,7 +14,6 @@ import {
   UpdateOrderResponse,
 } from './stubs/payment/v1alpha/payment';
 import { Metadata, status as RpcStatus } from '@grpc/grpc-js';
-import { Observable } from 'rxjs';
 import { RpcException } from '@nestjs/microservices';
 
 @Controller()
@@ -93,7 +92,33 @@ export class AppController implements PaymentCRUDServiceController {
     metadata?: Metadata,
   ): Promise<UpdateOrderResponse> {
     const user = await this.authService.validate(metadata);
+    const order = await this.appService.findById(request.order.id);
 
-    return { order: null };
+    if (!order) {
+      throw new RpcException({
+        code: RpcStatus.NOT_FOUND,
+        message: 'Order not found',
+      });
+    }
+
+    if (order.userId !== user.userId) {
+      throw new RpcException({
+        code: RpcStatus.PERMISSION_DENIED,
+        message: 'You cannot update this order',
+      });
+    }
+
+    // we make like a PUT in rest conventions, we replace the item resources
+    // it's easier to understand and implement
+    const orderData = {
+      items: { create: request.order.items },
+    };
+
+    const updatedOrder = await this.appService.update(
+      request.order.id,
+      orderData,
+    );
+
+    return { order: updatedOrder as any };
   }
 }

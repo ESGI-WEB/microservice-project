@@ -20,7 +20,8 @@ service ProductCRUDService {
 
 message GetRequest {
   int32 id = 1;
-  string name = 2;
+  repeated int32 ids = 2;
+  string name = 3;
 }
 
 message GetResponse {

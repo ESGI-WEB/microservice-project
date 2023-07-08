@@ -16,6 +16,7 @@ export interface Product {
 
 export interface GetRequest {
   id?: number;
+  ids?: number[];
   name?: string;
 }
 

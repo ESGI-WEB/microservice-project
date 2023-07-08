@@ -23,9 +23,9 @@ export class AppService {
     });
   }
 
-  findByName(name: string): Promise<Product[]> {
+  findManyBy(column: string, value: any): Promise<Product[]> {
     return this.prisma.product.findMany({
-      where: { name },
+      where: { [column]: value },
     });
   }
 

@@ -50,7 +50,11 @@ export interface GetRequest {
      */
     id: number;
     /**
-     * @generated from protobuf field: string name = 2;
+     * @generated from protobuf field: repeated int32 ids = 2;
+     */
+    ids: number[];
+    /**
+     * @generated from protobuf field: string name = 3;
      */
     name: string;
 }
@@ -232,11 +236,12 @@ class GetRequest$Type extends MessageType<GetRequest> {
     constructor() {
         super("product.v1alpha.GetRequest", [
             { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "ids", kind: "scalar", repeat: 1 /*RepeatType.PACKED*/, T: 5 /*ScalarType.INT32*/ },
+            { no: 3, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<GetRequest>): GetRequest {
-        const message = { id: 0, name: "" };
+        const message = { id: 0, ids: [], name: "" };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial<GetRequest>(this, message, value);
@@ -250,7 +255,14 @@ class GetRequest$Type extends MessageType<GetRequest> {
                 case /* int32 id */ 1:
                     message.id = reader.int32();
                     break;
-                case /* string name */ 2:
+                case /* repeated int32 ids */ 2:
+                    if (wireType === WireType.LengthDelimited)
+                        for (let e = reader.int32() + reader.pos; reader.pos < e;)
+                            message.ids.push(reader.int32());
+                    else
+                        message.ids.push(reader.int32());
+                    break;
+                case /* string name */ 3:
                     message.name = reader.string();
                     break;
                 default:
@@ -268,9 +280,16 @@ class GetRequest$Type extends MessageType<GetRequest> {
         /* int32 id = 1; */
         if (message.id !== 0)
             writer.tag(1, WireType.Varint).int32(message.id);
-        /* string name = 2; */
+        /* repeated int32 ids = 2; */
+        if (message.ids.length) {
+            writer.tag(2, WireType.LengthDelimited).fork();
+            for (let i = 0; i < message.ids.length; i++)
+                writer.int32(message.ids[i]);
+            writer.join();
+        }
+        /* string name = 3; */
         if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
+            writer.tag(3, WireType.LengthDelimited).string(message.name);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
