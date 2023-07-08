@@ -15,7 +15,7 @@ import { PAYMENT_V1ALPHA_PACKAGE_NAME } from './stubs/payment/v1alpha/payment';
 export const grpcConfig = addReflectionToGrpcConfig({
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6001',
+    url: '0.0.0.0:4000', // TODO: Use environment variable for port
     package: PAYMENT_V1ALPHA_PACKAGE_NAME,
     protoPath: join(__dirname, 'proto/payment/v1alpha/payment.proto'),
   },
@@ -25,7 +25,7 @@ export const authGrpcOptions: ClientProviderOptions = {
   name: AUTH_SERVICE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: 'localhost:4002',
+    url: 'auth-api:4000', // TODO: Use environment variable
     package: AUTH_V1ALPHA_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, './proto')],
@@ -39,7 +39,7 @@ export const productGrpcOptions: ClientProviderOptions = {
   name: PRODUCT_CR_UD_SERVICE_NAME,
   transport: Transport.GRPC,
   options: {
-    url: '0.0.0.0:6000',
+    url: 'product-api:4000', // TODO: Use environment variable
     package: PRODUCT_V1ALPHA_PACKAGE_NAME,
     loader: {
       includeDirs: [join(__dirname, './proto')],

@@ -32,6 +32,8 @@ export interface IPaymentCRUDServiceClient {
      */
     updateOrder(input: UpdateOrderRequest, options?: RpcOptions): UnaryCall<UpdateOrderRequest, UpdateOrderResponse>;
     /**
+     *  we should add a payment route here to validate an order
+     *
      * @generated from protobuf rpc: DeleteOrder(payment.v1alpha.DeleteOrderRequest) returns (payment.v1alpha.DeleteOrderResponse);
      */
     deleteOrder(input: DeleteOrderRequest, options?: RpcOptions): UnaryCall<DeleteOrderRequest, DeleteOrderResponse>;
@@ -67,6 +69,8 @@ export class PaymentCRUDServiceClient implements IPaymentCRUDServiceClient, Serv
         return stackIntercept<UpdateOrderRequest, UpdateOrderResponse>("unary", this._transport, method, opt, input);
     }
     /**
+     *  we should add a payment route here to validate an order
+     *
      * @generated from protobuf rpc: DeleteOrder(payment.v1alpha.DeleteOrderRequest) returns (payment.v1alpha.DeleteOrderResponse);
      */
     deleteOrder(input: DeleteOrderRequest, options?: RpcOptions): UnaryCall<DeleteOrderRequest, DeleteOrderResponse> {

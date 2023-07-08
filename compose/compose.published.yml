@@ -22,27 +22,6 @@ services:
       timeout: 10s
       retries: 5
 
-  product-api:
-    build:
-      context: ../product-api
-      dockerfile: Dockerfile
-    environment:
-      - DATABASE_URL=mysql://root:passwd@mariadb:3306/hero
-      - insecure=false
-      - USER_CERT=/certs/user.pem
-      - USER_KEY=/certs/user-key.pem
-      - ROOT_CA=/certs/rootCA.pem
-      - PORT=4000
-    ports:
-      - "4003:4000"
-    volumes:
-      - ../local/certs:/certs
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
-      interval: 5s
-      timeout: 10s
-      retries: 5
-
   auth-api:
     image: mohammaddocker/tm-auth-api
     environment:
@@ -59,6 +38,48 @@ services:
       - JAEGER_URL=http://tracing:4318/v1/traces
     ports:
       - "4002:4000"
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  product-api:
+    build:
+      context: ../product-api
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=mysql://root:passwd@mariadb:3306/hero
+      - insecure=true
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - ROOT_CA=/certs/rootCA.pem
+      - PORT=4000
+    ports:
+      - "4003:4000"
+    volumes:
+      - ../local/certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/health" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  payment-api:
+    build:
+      context: ../payment-api
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=mysql://root:passwd@mariadb:3306/payment
+      - insecure=true
+      - USER_CERT=/certs/user.pem
+      - USER_KEY=/certs/user-key.pem
+      - ROOT_CA=/certs/rootCA.pem
+      - PORT=4000
+    ports:
+      - "4004:4000"
     volumes:
       - ../local/certs:/certs
     healthcheck:

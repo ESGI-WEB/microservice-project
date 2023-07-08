@@ -10,8 +10,6 @@ COPY prisma ./prisma/
 
 RUN prisma generate
 
-CMD ls -al
-
 COPY . .
 
 RUN nest build

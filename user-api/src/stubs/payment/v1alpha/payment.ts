@@ -67,6 +67,8 @@ export interface PaymentCRUDServiceClient {
 
   updateOrder(request: UpdateOrderRequest, metadata?: Metadata): Observable<UpdateOrderResponse>;
 
+  /** we should add a payment route here to validate an order */
+
   deleteOrder(request: DeleteOrderRequest, metadata?: Metadata): Observable<DeleteOrderResponse>;
 }
 
@@ -85,6 +87,8 @@ export interface PaymentCRUDServiceController {
     request: UpdateOrderRequest,
     metadata?: Metadata,
   ): Promise<UpdateOrderResponse> | Observable<UpdateOrderResponse> | UpdateOrderResponse;
+
+  /** we should add a payment route here to validate an order */
 
   deleteOrder(
     request: DeleteOrderRequest,

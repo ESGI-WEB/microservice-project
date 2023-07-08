@@ -52,6 +52,14 @@ Set the .env :
 ```bash
 DATABASE_URL="mysql://root:passwd@localhost:3306/hero"
 ```
+```
+
+#### Payment-api
+
+Set the .env :
+```bash
+DATABASE_URL="mysql://root:passwd@localhost:3306/payment"
+```
 
 #### Migrate all from root
 ```bash

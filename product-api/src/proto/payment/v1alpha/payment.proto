@@ -29,6 +29,7 @@ service PaymentCRUDService {
   rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
   rpc UpdateOrder(UpdateOrderRequest) returns (UpdateOrderResponse);
   rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderResponse);
+  //  we should add a payment route here to validate an order
 }
 
 message GetOrderRequest {
