@@ -50,7 +50,7 @@ HEALTH_PORT=3002
 
 Set the .env :
 ```bash
-DATABASE_URL="mysql://root:passwd@localhost:3306/hero"
+DATABASE_URL="mysql://root:passwd@localhost:3306/product"
 ```
 ```
 
@@ -96,5 +96,4 @@ docker compose up -d
 
 | **Name**         | **Url**                |
 |------------------|------------------------|
-| project          | http://localhost:3000  |
 | observability ui | http://localhost:16686 |
