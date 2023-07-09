@@ -29,7 +29,7 @@ export interface Product {
      */
     description: string;
     /**
-     * @generated from protobuf field: int32 price = 4;
+     * @generated from protobuf field: float price = 4;
      */
     price: number;
     /**
@@ -80,7 +80,7 @@ export interface AddRequest {
      */
     description: string;
     /**
-     * @generated from protobuf field: int32 price = 3;
+     * @generated from protobuf field: float price = 3;
      */
     price: number;
     /**
@@ -114,7 +114,7 @@ export interface UpdateRequest {
      */
     description: string;
     /**
-     * @generated from protobuf field: int32 price = 4;
+     * @generated from protobuf field: float price = 4;
      */
     price: number;
     /**
@@ -156,7 +156,7 @@ class Product$Type extends MessageType<Product> {
             { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "price", kind: "scalar", T: 2 /*ScalarType.FLOAT*/ },
             { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 6, name: "userId", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
@@ -182,8 +182,8 @@ class Product$Type extends MessageType<Product> {
                 case /* string description */ 3:
                     message.description = reader.string();
                     break;
-                case /* int32 price */ 4:
-                    message.price = reader.int32();
+                case /* float price */ 4:
+                    message.price = reader.float();
                     break;
                 case /* int32 quantity */ 5:
                     message.quantity = reader.int32();
@@ -212,9 +212,9 @@ class Product$Type extends MessageType<Product> {
         /* string description = 3; */
         if (message.description !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.description);
-        /* int32 price = 4; */
+        /* float price = 4; */
         if (message.price !== 0)
-            writer.tag(4, WireType.Varint).int32(message.price);
+            writer.tag(4, WireType.Bit32).float(message.price);
         /* int32 quantity = 5; */
         if (message.quantity !== 0)
             writer.tag(5, WireType.Varint).int32(message.quantity);
@@ -353,7 +353,7 @@ class AddRequest$Type extends MessageType<AddRequest> {
         super("product.v1alpha.AddRequest", [
             { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 3, name: "price", kind: "scalar", T: 2 /*ScalarType.FLOAT*/ },
             { no: 4, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
@@ -375,8 +375,8 @@ class AddRequest$Type extends MessageType<AddRequest> {
                 case /* string description */ 2:
                     message.description = reader.string();
                     break;
-                case /* int32 price */ 3:
-                    message.price = reader.int32();
+                case /* float price */ 3:
+                    message.price = reader.float();
                     break;
                 case /* int32 quantity */ 4:
                     message.quantity = reader.int32();
@@ -399,9 +399,9 @@ class AddRequest$Type extends MessageType<AddRequest> {
         /* string description = 2; */
         if (message.description !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.description);
-        /* int32 price = 3; */
+        /* float price = 3; */
         if (message.price !== 0)
-            writer.tag(3, WireType.Varint).int32(message.price);
+            writer.tag(3, WireType.Bit32).float(message.price);
         /* int32 quantity = 4; */
         if (message.quantity !== 0)
             writer.tag(4, WireType.Varint).int32(message.quantity);
@@ -469,7 +469,7 @@ class UpdateRequest$Type extends MessageType<UpdateRequest> {
             { no: 1, name: "id", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "price", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 4, name: "price", kind: "scalar", T: 2 /*ScalarType.FLOAT*/ },
             { no: 5, name: "quantity", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
         ]);
     }
@@ -494,8 +494,8 @@ class UpdateRequest$Type extends MessageType<UpdateRequest> {
                 case /* string description */ 3:
                     message.description = reader.string();
                     break;
-                case /* int32 price */ 4:
-                    message.price = reader.int32();
+                case /* float price */ 4:
+                    message.price = reader.float();
                     break;
                 case /* int32 quantity */ 5:
                     message.quantity = reader.int32();
@@ -521,9 +521,9 @@ class UpdateRequest$Type extends MessageType<UpdateRequest> {
         /* string description = 3; */
         if (message.description !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.description);
-        /* int32 price = 4; */
+        /* float price = 4; */
         if (message.price !== 0)
-            writer.tag(4, WireType.Varint).int32(message.price);
+            writer.tag(4, WireType.Bit32).float(message.price);
         /* int32 quantity = 5; */
         if (message.quantity !== 0)
             writer.tag(5, WireType.Varint).int32(message.quantity);

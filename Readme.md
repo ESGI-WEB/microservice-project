@@ -1,3 +1,6 @@
+This is a school projet. To see what was developped, please see the [doc.md](doc.md) file.
+
+
 # gRPC Task Manager
 
 ## Installation
@@ -5,7 +8,7 @@
 ### Create the docker network
 
 ```bash
-docker network create grpc-task-manager_default
+docker network create grpc-microservice-project
 ```
 
 ### if docker network doesn't work WARNING
@@ -20,7 +23,7 @@ docker network prune
 docker compose up -d mariadb mongo tracing
 ```
 
-### Run the prisma migration
+### Set environment variables
 #### User-api
 
 Set the .env :
@@ -52,7 +55,6 @@ Set the .env :
 ```bash
 DATABASE_URL="mysql://root:passwd@localhost:3306/product"
 ```
-```
 
 #### Payment-api
 
@@ -61,12 +63,13 @@ Set the .env :
 DATABASE_URL="mysql://root:passwd@localhost:3306/payment"
 ```
 
-#### Migrate all from root
+### Run the prisma migration
+From root folder, execute
 ```bash
 sh migrateAll.sh
 ```
 
-Tips: to create proto files, you have to create them in /proto folder from the root, and execute
+Tips: to create proto files, you have to create them in /proto folder from the root, and execute this command to update them (and create stubs) in /proto
 ```bash
 sh export.sh
 ```

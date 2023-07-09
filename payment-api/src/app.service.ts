@@ -38,6 +38,7 @@ export class AppService {
   }
 
   async create(data) {
+    // we can create an order without items and edit it later (cf update)
     if (data.items.create) {
       await this.checkProductStock(data.items.create);
     }
@@ -58,6 +59,7 @@ export class AppService {
   // we make like a PUT in rest conventions, we replace the resource
   // it's easier to understand and implement
   async update(id: number, data) {
+    // transaction to not delete items if we throw an error after
     return await this.prisma.$transaction(async (tx) => {
       await tx.orderItem.deleteMany({
         where: {
@@ -97,11 +99,12 @@ export class AppService {
     }, {});
     const productIds = Object.keys(productsByQuantity).map((id) => +id);
 
-    const products = (
-      await this.productService.get({
-        ids: productIds,
-      })
-    ).products;
+    const products =
+      (
+        await this.productService.get({
+          ids: productIds,
+        })
+      ).products ?? [];
 
     if (products.length !== productIds.length) {
       throw new RpcException({

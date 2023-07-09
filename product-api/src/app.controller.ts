@@ -13,8 +13,9 @@ import {
   ProductCRUDServiceController,
   ProductCRUDServiceControllerMethods,
 } from './stubs/product/v1alpha/product';
-import { Metadata } from '@grpc/grpc-js';
+import { Metadata, status as RpcStatus } from '@grpc/grpc-js';
 import { AuthService } from './auth/auth.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Controller()
 @ProductCRUDServiceControllerMethods()
@@ -40,7 +41,22 @@ export class AppController implements ProductCRUDServiceController {
 
   async update(request: UpdateRequest, md: Metadata): Promise<UpdateResponse> {
     const { id, name, description, price, quantity } = request;
-    await this.authService.validate(md);
+    const user = await this.authService.validate(md);
+
+    const productToUpdate = await this.appService.findById(id);
+    if (!productToUpdate) {
+      throw new RpcException({
+        code: RpcStatus.NOT_FOUND,
+        message: 'Product not found',
+      });
+    }
+
+    if (user.userId !== productToUpdate.userId) {
+      throw new RpcException({
+        code: RpcStatus.PERMISSION_DENIED,
+        message: 'You can only update your own products',
+      });
+    }
 
     const product = await this.appService.update(id, {
       name,
@@ -53,7 +69,22 @@ export class AppController implements ProductCRUDServiceController {
 
   async delete(request: DeleteRequest, md: Metadata): Promise<DeleteResponse> {
     const { id } = request;
-    await this.authService.validate(md);
+    const user = await this.authService.validate(md);
+
+    const productToDelete = await this.appService.findById(id);
+
+    if (!productToDelete) {
+      throw new RpcException({
+        code: RpcStatus.NOT_FOUND,
+        message: 'Product not found',
+      });
+    }
+    if (user.userId !== productToDelete.userId) {
+      throw new RpcException({
+        code: RpcStatus.PERMISSION_DENIED,
+        message: 'You can only update your own products',
+      });
+    }
 
     const product = await this.appService.delete(id);
     return { product };

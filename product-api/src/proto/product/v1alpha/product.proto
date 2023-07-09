@@ -6,7 +6,7 @@ message Product {
   int32 id = 1;
   string name = 2;
   string description = 3;
-  int32 price = 4;
+  float price = 4;
   int32 quantity = 5;
   string userId = 6;
 }
@@ -31,7 +31,7 @@ message GetResponse {
 message AddRequest {
   string name = 1;
   string description = 2;
-  int32 price = 3;
+  float price = 3;
   int32 quantity = 4;
 }
 
@@ -43,7 +43,7 @@ message UpdateRequest {
   int32 id = 1;
   string name = 2;
   string description = 3;
-  int32 price = 4;
+  float price = 4;
   int32 quantity = 5;
 }
 

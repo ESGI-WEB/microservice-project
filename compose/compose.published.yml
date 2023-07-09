@@ -91,4 +91,4 @@ services:
 networks:
   default:
     external: true
-    name: grpc-task-manager_default
+    name: grpc-microservice-project
